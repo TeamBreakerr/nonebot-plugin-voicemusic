@@ -6,7 +6,7 @@
 
 <div align="center">
 
-# nonebot-plugin-picksong
+# nonebot-plugin-voicemusic
 
 _✨ NoneBot 语音发送点歌插件 ✨_
 
@@ -28,7 +28,7 @@ _✨ NoneBot 语音发送点歌插件 ✨_
 <summary>使用 nb-cli 安装</summary>
 在 nonebot2 项目的根目录下打开命令行, 输入以下指令即可安装
 
-    nb plugin install nonebot-plugin-picksong
+    nb plugin install nonebot-plugin-voicemusic
 
 </details>
 
@@ -39,27 +39,27 @@ _✨ NoneBot 语音发送点歌插件 ✨_
 <details>
 <summary>pip</summary>
 
-    pip install nonebot-plugin-picksong
+    pip install nonebot-plugin-voicemusic
 </details>
 <details>
 <summary>pdm</summary>
 
-    pdm add nonebot-plugin-picksong
+    pdm add nonebot-plugin-voicemusic
 </details>
 <details>
 <summary>poetry</summary>
 
-    poetry add nonebot-plugin-picksong
+    poetry add nonebot-plugin-voicemusic
 </details>
 <details>
 <summary>conda</summary>
 
-    conda install nonebot-plugin-picksong
+    conda install nonebot-plugin-voicemusic
 </details>
 
 打开 nonebot2 项目根目录下的 `pyproject.toml` 文件, 在 `[tool.nonebot]` 部分追加写入
 
-    plugins = ["nonebot_plugin_picksong"]
+    plugins = ["nonebot_plugin_voicemusic"]
 
 </details>
 
