@@ -22,10 +22,6 @@ __plugin_meta__ = PluginMetadata(
     type="application",
     homepage="https://github.com/Onimaimai/nonebot-plugin-voicemusic",
     supported_adapters={"~onebot.v11"},
-    extra={
-        "author": "QiYork",
-        "version": "0.1.1"
-    }
 )
 
 # 获取插件的缓存和数据目录
