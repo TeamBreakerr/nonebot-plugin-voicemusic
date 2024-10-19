@@ -3,7 +3,7 @@ name = "nonebot-plugin-voicemusic"
 version = "0.1.2"
 description = "nonebot2语音点歌插件"
 readme = "README.md"
-requires-python = ">=3.8"
+requires-python = ">=3.9"
 authors = [
   {email = "1309946582@qq.com"},
   {name = "QiYork"}
