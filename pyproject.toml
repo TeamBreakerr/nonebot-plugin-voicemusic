@@ -1,6 +1,6 @@
 [project]
 name = "nonebot-plugin-voicemusic"
-version = "0.1.4"
+version = "0.1.5"
 description = "nonebot2语音点歌插件"
 readme = "README.md"
 requires-python = ">=3.9"
