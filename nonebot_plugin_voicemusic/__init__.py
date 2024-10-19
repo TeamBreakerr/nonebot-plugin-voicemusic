@@ -1,5 +1,4 @@
 import re
-import shutil
 import httpx
 from pathlib import Path
 from pydub import AudioSegment
