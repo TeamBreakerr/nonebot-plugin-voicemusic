@@ -29,9 +29,9 @@ plugin_cache_dir: Path = store.get_plugin_cache_dir()
 temp_folder = plugin_cache_dir / "temp"
 temp_folder.mkdir(exist_ok=True)  # 创建temp目录
 
-driver = get_driver()
-uin = driver.config.uin
-skey = driver.config.skey
+config = nonebot.get_driver().config
+uin = config.uin
+skey = config.skey
 
 music_handler = on_message(priority=999)
 
