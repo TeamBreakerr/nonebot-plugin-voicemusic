@@ -30,8 +30,8 @@ temp_folder = plugin_cache_dir / "temp"
 temp_folder.mkdir(exist_ok=True)  # 创建temp目录
 
 driver = get_driver()
-uin = driver.config.uin or None
-skey = driver.config.skey or None
+uin = driver.config.uin
+skey = driver.config.skey
 
 music_handler = on_message(priority=999)
 
