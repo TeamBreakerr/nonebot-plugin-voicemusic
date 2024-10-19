@@ -1,6 +1,6 @@
 [project]
 name = "nonebot-plugin-voicemusic"
-version = "0.1.6"
+version = "0.1.7"
 description = "nonebot2语音点歌插件"
 readme = "README.md"
 requires-python = ">=3.9"
@@ -21,6 +21,7 @@ dependencies = [
     "nonebot_plugin_localstore>=0.7.0",
     "httpx>=0.27.2",
     "pydub>=0.25.1",
+    "pydantic"
     "graiax-silkcoder>=0.3.6",
 ]
 

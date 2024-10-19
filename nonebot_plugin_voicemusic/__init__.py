@@ -5,11 +5,14 @@ from pathlib import Path
 from pydub import AudioSegment
 from graiax import silkcoder
 from nonebot import require
-from nonebot import get_driver
+from nonebot import on_command
+from nonebot import get_plugin_config
+from .config import Config
+from nonebot.params import CommandArg
 from nonebot.plugin import PluginMetadata
 from nonebot.log import logger
 from nonebot.adapters.onebot.v11 import Bot, Message, MessageSegment, Event
-from nonebot.plugin import on_message
+from .config import Config
 
 require("nonebot_plugin_localstore")
 import nonebot_plugin_localstore as store
@@ -29,52 +32,57 @@ plugin_cache_dir: Path = store.get_plugin_cache_dir()
 temp_folder = plugin_cache_dir / "temp"
 temp_folder.mkdir(exist_ok=True)  # 创建temp目录
 
-driver = get_driver()
+# 加载插件配置
+plugin_config = get_plugin_config(Config)
+uin = plugin_config.uin
+skey = plugin_config.skey
+if not uin or not skey:
+    logger.warning("语音点歌未配置 UIN 或 SKEY，建议在 .env 文件中进行配置")
 
-#如果config里没有设置，则为None
-uin = driver.config.uin if hasattr(driver.config, "uin") else None
-skey = driver.config.skey if hasattr(driver.config, "skey") else None
 
-music_handler = on_message(priority=999)
+# 注册命令 "点歌"
+music_handler = on_command("点歌", aliases={"点一首歌"}, priority=5)
 
 @music_handler.handle()
-async def handle_music_request(bot: Bot, event: Event):
-    receive_text = event.get_plaintext().strip()
+async def handle_music_request(bot: Bot, event: Event, args: Message = CommandArg()):
+    """处理用户的点歌请求"""
+    music_name = args.extract_plain_text().strip()  # 获取指令参数
 
-    MUSIC_PATTERN = re.compile(r"点歌\s+(.+)")
-    match = MUSIC_PATTERN.search(receive_text)
-
-    if match:
-        music_name = match.group(1)
-        await bot.send(event, "收到点歌，请稍等...")        
-        src = await get_music_src(music_name)
-
-        if src:
-            mp3_path = temp_folder / "temp.mp3"
-            wav_path = temp_folder / "temp.wav"
-            flac_path = temp_folder / "temp.flac"
-
-            # 根据音频类型选择保存路径
-            if re.search("flac", src):
-                save_path = flac_path
-            elif re.search("mp3", src):
-                save_path = mp3_path
-            else:
-                save_path = wav_path
-
-            # 下载音乐并转换为 SILK 格式
-            if await download_audio(src, save_path):
-                silk_file = convert_to_silk(save_path)
-                if silk_file:
-                    await bot.send(event, MessageSegment.record(silk_file))
-                else:
-                    await bot.send(event, "音频转换失败，请稍后再试。")
-            else:
-                await bot.send(event, "音频下载失败，请稍后再试。")
-        else:
-            await bot.send(event, "未能找到该音乐，请检查名称是否正确。")
-    else:
+    if not music_name:
+        await bot.send(event, "请提供歌曲名称，例如：点歌 告白气球")
         return
+
+    await bot.send(event, f"收到点歌请稍等...\n《{music_name}》")
+
+    # 获取音乐源 URL
+    src = await get_music_src(music_name)
+
+    if src:
+        # 设置临时文件路径
+        mp3_path = temp_folder / "temp.mp3"
+        wav_path = temp_folder / "temp.wav"
+        flac_path = temp_folder / "temp.flac"
+
+        # 根据音频类型选择保存路径
+        if re.search("flac", src):
+            save_path = flac_path
+        elif re.search("mp3", src):
+            save_path = mp3_path
+        else:
+            save_path = wav_path
+
+        # 下载音乐并转换为 SILK 格式
+        if await download_audio(src, save_path):
+            silk_file = convert_to_silk(save_path)
+            if silk_file:
+                await bot.send(event, MessageSegment.record(silk_file))
+            else:
+                await bot.send(event, "音频转换失败，请稍后再试。")
+        else:
+            await bot.send(event, "音频下载失败，请稍后再试。")
+    else:
+        await bot.send(event, "未能找到该音乐，请检查名称是否正确。")
+
 
 # 音频下载函数
 async def download_audio(audio_url: str, save_path: str) -> bool:
@@ -122,6 +130,7 @@ def convert_to_silk(save_path: Path) -> str:
 
 # 获取音乐直链函数
 async def get_music_src(keyword: str) -> str:
+    """根据关键词获取音乐直链"""
     url = "https://api.xingzhige.com/API/QQmusicVIP/"
     params = {
         "name": keyword,
