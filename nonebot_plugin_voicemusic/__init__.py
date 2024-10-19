@@ -52,7 +52,7 @@ async def handle_music_request(bot: Bot, event: Event, args: Message = CommandAr
         await bot.send(event, "请提供歌曲名称，例如：点歌 告白气球")
         return
 
-    await bot.send(event, f"收到点歌请稍等...\n《{music_name}》")
+    await bot.send(event, f"收到点歌请稍等...")
 
     # 获取音乐源 URL
     src = await get_music_src(music_name)
