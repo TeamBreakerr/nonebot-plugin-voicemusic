@@ -1,4 +1,5 @@
 import re
+import shutil
 import httpx
 from pathlib import Path
 from pydub import AudioSegment
@@ -28,9 +29,9 @@ plugin_cache_dir: Path = store.get_plugin_cache_dir()
 temp_folder = plugin_cache_dir / "temp"
 temp_folder.mkdir(exist_ok=True)  # 创建temp目录
 
-config = nonebot.get_driver().config
-uin = config.uin
-skey = config.skey
+driver = get_driver()
+uin = driver.config.uin
+skey = driver.config.skey
 
 music_handler = on_message(priority=999)
 
