@@ -95,4 +95,4 @@ SKEY=xxx
 | 点歌 <歌名> <歌手> | 群员 | 否 | 群聊 | 歌手为可选项 |
 ### 效果图
 
-![919e9a51d7af4dc558b2b4968f3a13c3](https://github.com/user-attachments/assets/518afa87-5f78-49dc-afd4-c0fa834ae86c)
+![919e9a51d7af4dc558b2b4968f3a13c3](https://github.com/user-attachments/assets/ec29fffe-7aee-44c6-a66b-c4f68e1bba40)
