@@ -15,7 +15,6 @@ __plugin_meta__ = PluginMetadata(
     usage="点歌 歌名 可选歌手",
     config=Config,
     type="application",
-    config=Config, 
     homepage="https://github.com/Onimaimai/nonebot-plugin-voicemusic",
     supported_adapters={"~onebot.v11"},
 )
