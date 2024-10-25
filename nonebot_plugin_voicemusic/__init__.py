@@ -1,3 +1,4 @@
+import asyncio
 import httpx
 from nonebot import on_command
 from nonebot import get_plugin_config
@@ -26,6 +27,8 @@ skey = plugin_config.skey
 if not uin or not skey:
     logger.warning("语音点歌未配置 UIN 或 SKEY，建议在 .env 文件中进行配置")
 
+# 创建一个异步锁
+music_lock = asyncio.Lock()
 
 # 注册命令 "点歌"
 music_handler = on_command("点歌", aliases={"点一首歌"}, priority=5)
@@ -33,6 +36,11 @@ music_handler = on_command("点歌", aliases={"点一首歌"}, priority=5)
 @music_handler.handle()
 async def handle_music_request(args: Message = CommandArg()):
     """处理用户的点歌请求"""
+    # 检查锁是否已被占用
+    if music_lock.locked():
+        await music_handler.finish("请等待上一首点歌结束")
+        return
+        
     music_name = args.extract_plain_text().strip()  # 获取指令参数
 
     if not music_name:
@@ -41,17 +49,18 @@ async def handle_music_request(args: Message = CommandArg()):
 
     await music_handler.send(f"收到点歌请稍等...")
 
-    # 获取音乐源 URL
-    src = await get_music_src(music_name)
+    async with music_lock:
+        # 获取音乐源 URL
+        src = await get_music_src(music_name)
 
-    if src:
-
-        if content := (await download_audio(src)):
-            await music_handler.finish(MessageSegment.record(content))
+        if src:
+            content = await download_audio(src)
+            if content:
+                await music_handler.finish(MessageSegment.record(content))
+            else:
+                await music_handler.finish("音频下载失败，请稍后再试")
         else:
-            await music_handler.finish("音频下载失败，请稍后再试。")
-    else:
-        await music_handler.finish("未能找到该音乐，请检查名称是否正确。")
+            await music_handler.finish("未能找到该音乐，请检查名称是否正确")
 
 
 # 音频下载函数
