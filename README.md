@@ -76,16 +76,15 @@ sudo apt install ffmpeg
 
 | 配置项 | 必填 | 说明 |
 |:-----:|:----:|:----:|
-| UIN | 是 | 提供skey的qq号 |
-| SKEY | 是 | 你获取的qqmusic_key |
+| UIN | 是 | 提供key的qq号 |
+| KEY | 是 | qqmusic_key |
 
 例：
-
-UIN=123
-
-SKEY=xxx
-
-获取qqmusic_key/qm_keyst的方法:[打开QQ音乐官网](https://y.qq.com/),登录后按f12并切换到网络（network）后随便点一个链接寻找参数填入就好
+```
+UIN = "YOUR_UIN" # 请将这里的'YOUR_UIN'替换为提供key的qq号
+KEY = "YOUR_KEY" # 请将这里的'YOUR_KEY'替换为获取的qqmusic_key
+```
+获取qqmusic_key/qm_keyst的方法:[打开QQ音乐官网](https://y.qq.com/),登录后按f12并切换到应用（application）后在cookies中寻找参数填入就好
 只能获取QQ音乐上有的音乐
 
 ## 🎉 使用
