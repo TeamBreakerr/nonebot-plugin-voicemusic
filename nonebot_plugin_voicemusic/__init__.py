@@ -1,5 +1,6 @@
 import asyncio
 import httpx
+from typing import Union
 from nonebot import on_command
 from nonebot import get_plugin_config
 from nonebot.params import CommandArg
@@ -64,7 +65,7 @@ async def handle_music_request(args: Message = CommandArg()):
 
 
 # 音频下载函数
-async def download_audio(audio_url: str) -> bytes | None:
+async def download_audio(audio_url: str) -> Union[bytes, None]:
     async with httpx.AsyncClient() as client:
         try:
             response = await client.get(audio_url)
@@ -79,7 +80,7 @@ async def download_audio(audio_url: str) -> bytes | None:
 
 
 # 获取音乐直链函数
-async def get_music_src(keyword: str) -> str | None:
+async def get_music_src(keyword: str) -> Union[str, None]:
     """根据关键词获取音乐直链"""
     url = "https://api.xingzhige.com/API/QQmusicVIP/"
     params = {
