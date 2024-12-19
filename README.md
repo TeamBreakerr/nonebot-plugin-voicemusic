@@ -72,7 +72,7 @@ Linux可执行如下命令来安装ffmpeg
 sudo apt install ffmpeg
 ```
 
-在 nonebot2 项目的`.env`文件中添加下表中的必填配置
+在 nonebot2 项目的`.env`或`config.py`文件中添加下表中的配置
 
 | 配置项 | 必填 | 说明 |
 |:-----:|:----:|:----:|
