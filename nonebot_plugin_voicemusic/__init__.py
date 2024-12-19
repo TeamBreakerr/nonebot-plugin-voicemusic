@@ -7,7 +7,7 @@ from nonebot.params import CommandArg
 from nonebot.plugin import PluginMetadata
 from nonebot.log import logger
 from nonebot.adapters.onebot.v11 import Message, MessageSegment
-from .config import Config
+from .config import Config, config
 
 
 # 插件元数据
@@ -22,11 +22,10 @@ __plugin_meta__ = PluginMetadata(
 )
 
 # 加载插件配置
-plugin_config = get_plugin_config(Config)
-uin = plugin_config.uin
-skey = plugin_config.skey
+uin = config.uin
+skey = config.skey
 if not uin or not skey:
-    logger.warning("语音点歌未配置 UIN 或 SKEY，建议在 .env 文件中进行配置")
+    logger.warning("语音点歌未配置 uin 或 skey，建议在 .env 或 config.py 文件中填写配置")
 
 # 创建一个异步锁
 music_lock = asyncio.Lock()
