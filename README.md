@@ -88,8 +88,7 @@ uin="YOUR_UIN" # 请将这里的'YOUR_UIN'替换为提供key的qq号
 skey="YOUR_SKEY" # 请将这里的'YOUR_SKEY'替换为获取的qqmusic_key
 ```
 
-获取qqmusic_key/qm_keyst的方法:[打开QQ音乐官网](https://y.qq.com/),登录后按f12并切换到应用（application）后在cookies中寻找参数填入就好
-只能获取QQ音乐上有的音乐
+获取qqmusic_key/qm_keyst的方法:[打开QQ音乐官网](https://y.qq.com/),登录后按f12并切换到应用(application)后在cookies中寻找参数填入就好
 
 ## 🎉 使用
 ### 指令表
