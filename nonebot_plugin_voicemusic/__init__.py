@@ -81,12 +81,9 @@ async def download_audio(audio_url: str) -> Union[bytes, None]:
 # 获取音乐直链函数
 async def get_music_src(keyword: str) -> Union[str, None]:
     """根据关键词获取音乐直链"""
-    url = "https://api.xingzhige.com/API/QQmusicVIP/"
+    url = "https://api.xingzhige.com/API/NetEase_CloudMusic_new/"
     params = {
         "name": keyword,
-        "uin": uin,
-        "skey": skey,
-        "max": 3,
         "n": 1
     }
 
